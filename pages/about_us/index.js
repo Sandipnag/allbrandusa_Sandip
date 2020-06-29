@@ -3,16 +3,12 @@ import {
     StyleSheet,
     ScrollView,
     Dimensions,
-    View,
-    Text,
-    TouchableOpacity
+    View
 } from 'react-native';
-
 import HTML from 'react-native-render-html';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Apis from '../../network/ApiCall';
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import Header from '../../components/header';
 const Aboutus = (props) => {
 
     const [content, setContent] = useState(``);
@@ -24,24 +20,21 @@ const Aboutus = (props) => {
         })
     });
 
+    goback = ()=>{
+        props.navigation.navigate('Menu');
+    }
+
     return (
         <View style={{ flex: 1 }}>
+            <Header 
+                headerText={'About Us'}
+                goback={goback}
+            />
             <Spinner
                 visible={loading}
                 textContent={'Loading...'}
                 textStyle={{}}
             />
-            <View style={{ flex: .1, borderBottomColor: '#d3d3d3', borderBottomWidth: 1, justifyContent: 'center',backgroundColor:'#3EC5FD' }}>
-                <TouchableOpacity onPress={() => props.navigation.navigate('Menu')}>
-                    <Ionicons
-                        name={'ios-arrow-round-back'}
-                        size={30}
-                        style={{ marginLeft: 10 }}
-                    />
-                </TouchableOpacity>
-
-                <Text style={{ position: 'absolute', zIndex: 999, alignSelf: 'center',fontSize:22 }}>About Us</Text>
-            </View>
             <View style={{ flex: 1 }}>
                 <ScrollView
                     contentContainerStyle={{ paddingHorizontal: 15 }}
@@ -66,6 +59,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingTop: 30
     },
+    safeArea: {
+        flexDirection: 'row',
+        backgroundColor: '#3EC5FD'
+    }
 
 });
 

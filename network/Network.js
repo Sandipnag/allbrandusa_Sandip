@@ -10,17 +10,13 @@ import axios from 'axios';
 export const Network = (method, url, data = {}) => {
   // console.log('network ', url, '----' , method , '----' , data);
   return new Promise((resolve, reject) => {
-    //cheking network connection
-    // console.log('net  ', method, url, data);
+    console.log('net  ', method, url, data);
     NetInfo.fetch().then(state => {
       if (state.isConnected) {
         if (method === 'GET') {
           axios({
             method,
             url: `${url}`,
-            headers: {
-              'x-access-token': data.authtoken ? data.authtoken : null,
-            },
             body: data,
           }).then(response => {
             if (response.status === 200 || response.response_code === 2000) {
@@ -33,9 +29,6 @@ export const Network = (method, url, data = {}) => {
           axios({
             method,
             url: `${url}`,
-            headers: {
-              'x-access-token': data.authtoken ? data.authtoken : null,
-            },
             data,
           })
             .then(response => {

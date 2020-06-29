@@ -12,11 +12,13 @@ import HTML from 'react-native-render-html';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Apis from '../../network/ApiCall';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Header from '../../components/header';
 
 const Partners = (props) => {
 
     const [content, setContent] = useState(``);
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         Apis.getCmsData('partners').then((res) => {
             setContent(res.page_details);
@@ -24,6 +26,10 @@ const Partners = (props) => {
         })
     });
 
+
+    goback = () => {
+        props.navigation.navigate('Menu');
+    }
     return (
         <View style={{ flex: 1 }}>
             <Spinner
@@ -31,17 +37,10 @@ const Partners = (props) => {
                 textContent={'Loading...'}
                 textStyle={{}}
             />
-            <View style={{ flex: .1, borderBottomColor: '#d3d3d3', borderBottomWidth: 1, justifyContent: 'center',backgroundColor:'#3EC5FD' }}>
-                <TouchableOpacity onPress={() => props.navigation.navigate('Menu')}>
-                    <Ionicons
-                        name={'ios-arrow-round-back'}
-                        size={30}
-                        style={{ marginLeft: 10 }}
-                    />
-                </TouchableOpacity>
-
-                <Text style={{ position: 'absolute', zIndex: 999, alignSelf: 'center',fontSize:22 }}>Partners</Text>
-            </View>
+            <Header
+                headerText={'Partners'}
+                goback={goback}
+            />
             <View style={{ flex: 1 }}>
                 <ScrollView
                     contentContainerStyle={{ paddingHorizontal: 15 }}

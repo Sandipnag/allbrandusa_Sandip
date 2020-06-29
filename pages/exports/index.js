@@ -9,20 +9,25 @@ import {
 } from 'react-native';
 
 import HTML from 'react-native-render-html';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Apis from '../../network/ApiCall';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Header from '../../components/header';
 
 const Exports = (props) => {
 
     const [content, setContent] = useState(``);
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         Apis.getCmsData('exports').then((res) => {
             setContent(res.page_details);
             setLoading(false);
         })
     });
+
+    goback = () => {
+        props.navigation.navigate('Menu');
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -31,17 +36,10 @@ const Exports = (props) => {
                 textContent={'Loading...'}
                 textStyle={{}}
             />
-            <View style={{ flex: .1, borderBottomColor: '#d3d3d3', borderBottomWidth: 1, justifyContent: 'center',backgroundColor:'#3EC5FD' }}>
-                <TouchableOpacity onPress={() => props.navigation.navigate('Menu')}>
-                    <Ionicons
-                        name={'ios-arrow-round-back'}
-                        size={30}
-                        style={{ marginLeft: 10 }}
-                    />
-                </TouchableOpacity>
-
-                <Text style={{ position: 'absolute', zIndex: 999, alignSelf: 'center',fontSize:22 }}>Exports</Text>
-            </View>
+            <Header
+                headerText={'Exports'}
+                goback={goback}
+            />
             <View style={{ flex: 1 }}>
                 <ScrollView
                     contentContainerStyle={{ paddingHorizontal: 15 }}

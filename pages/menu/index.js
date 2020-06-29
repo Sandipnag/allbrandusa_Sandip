@@ -91,8 +91,7 @@ const Menu = (props) => {
                         <Text
                             style={{
                                 textAlign: 'center',
-                                // fontSize: boxsize * .12,
-                                // color: '#fff'
+                                fontSize: boxsize * .15
                             }}>
                             {single.name}
                         </Text>

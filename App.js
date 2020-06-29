@@ -25,7 +25,7 @@ const AppNavigator = createAnimatedSwitchNavigator(
   {
     transition: (
       <Transition.Together>
-        <Transition.In type="slide-right" durationMs={500} />
+        {/* <Transition.In type="slide-right" durationMs={500} /> */}
       </Transition.Together>
     ),
   }
