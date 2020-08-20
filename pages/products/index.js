@@ -15,18 +15,21 @@ import Header from '../../components/header';
 import Apis from '../../network/ApiCall';
 import { ImageUrl, ApiUrl } from '../../network/Url';
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import AsyncStorage from '@react-native-community/async-storage';
 const DATA_TO_SHOW = 6;
 
-function Item({ data }) {
+function Item({ data, productIndex }) {
     return (
-        <View style={styles.product}>
+        <TouchableOpacity onPress={()=>productsDetails(productIndex)} style={styles.product}>
             <View style={{ flex: 1, padding: 10, justifyContent: 'center' }}>
                 <Text style={{ fontSize: 15, fontWeight: 'bold' }} numberOfLines={0}>
-                    {data.productDesc}
+                    {`${data.productDesc}`}
+                </Text>
+                <Text style={{ fontSize: 15, fontWeight: 'bold', marginTop: 10 }} numberOfLines={0}>
+                    {`$${data.productPrice}  `}{`  ${data.available} pcs`}
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 
@@ -96,6 +99,7 @@ const Products = (props) => {
         })
             .then((response) => response.json())
             .then((res) => {
+                // console.log('res.productList',JSON.stringify(res.productList,null,4))
                 setproducts(res.productList);
                 setLoading(false)
             })
@@ -108,13 +112,21 @@ const Products = (props) => {
         props.navigation.navigate('Menu');
     }
 
+    contactUS = () => {
+        props.navigation.navigate('ContactUs');
+    }
+
     generateQueryParam = (category = null, brand = null, searchText = '') => {
         setLoading(true);
         let tempParam = param;
-        if (category)
-            tempParam = { ...param, category, per_page: DATA_TO_SHOW };
-        else if (brand)
-            tempParam = { ...param, brand, per_page: DATA_TO_SHOW };
+        if (category){
+            tempParam = { ...param, category, per_page: DATA_TO_SHOW, search_data: '' };
+            setSearchText('')
+        }
+        else if (brand){
+            tempParam = { ...param, brand, per_page: DATA_TO_SHOW, search_data: '' };
+            setSearchText('')
+        }
         else if (searchText != '') {
             Keyboard.dismiss();
             tempParam = { page_no: 1, per_page: DATA_TO_SHOW, search_data: searchText };
@@ -134,16 +146,28 @@ const Products = (props) => {
         getAllProducts(tempParam);
     };
 
+    productsDetails = async(index) =>{
+        await AsyncStorage.setItem('product_details', JSON.stringify(products[index])) ; 
+        props.navigation.navigate('Productdetails')
+    }
+
     return (
         <View style={styles.container}>
             <Header
                 headerText={'Products'}
                 goback={goback}
+                contactUS={contactUS}
             />
-            <View style={{ flex: 0.9 }}>
+            <Spinner
+                visible={loading}
+                textContent={'Loading...'}
+                textStyle={{}}
+            />
+            <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', margin: 10 }}>
                     <TextInput
                         placeholder='Search in all items'
+                        value={searchText}
                         onChangeText={(text) => setSearchText(text)}
                         style={{ borderWidth: 1, flex: 3, height: 40, paddingLeft: 10 }}
                     />
@@ -157,7 +181,7 @@ const Products = (props) => {
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>
-                        <Text>Search</Text>
+                        <Text style={{ color: '#fff' }}>EZ Search</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ margin: 10, alignItems: 'center', flexDirection: 'row' }}>
@@ -205,16 +229,12 @@ const Products = (props) => {
                         initialNumToRender={10}
                         showsVerticalScrollIndicator={false}
                         data={products}
-                        renderItem={({ item, index }) => <Item data={item} />}
+                        renderItem={({ item, index }) => <Item productIndex={index} data={item} productsDetails={productsDetails} />}
                         keyExtractor={item => item.productID}
                     />}
                     {products.length == 0 && <Text style={{ alignSelf: 'center', fontSize: 22, fontWeight: 'bold' }}>No Products To Show</Text>}
                 </View>
             </View>
-
-
-
-
         </View>
     );
 };

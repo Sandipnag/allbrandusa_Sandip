@@ -8,9 +8,7 @@ import axios from 'axios';
 //   GLOBAL.originalXMLHttpRequest : GLOBAL.XMLHttpRequest;
 
 export const Network = (method, url, data = {}) => {
-  // console.log('network ', url, '----' , method , '----' , data);
   return new Promise((resolve, reject) => {
-    console.log('net  ', method, url, data);
     NetInfo.fetch().then(state => {
       if (state.isConnected) {
         if (method === 'GET') {

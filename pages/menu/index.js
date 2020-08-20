@@ -13,7 +13,7 @@ const items = [
     { name: 'About Us', link: 'Aboutus', icon: require('../../assets/images/about_us.png') },
     { name: 'Exports', link: 'Exports', icon: require('../../assets/images/export.png') },
     { name: 'Partners', link: 'Partners', icon: require('../../assets/images/partner.png') },
-    { name: 'RMA', link: '', icon: require('../../assets/images/rma.png') },
+    { name: 'RMA', link: 'RMA', icon: require('../../assets/images/rma.png') },
     { name: 'Contact Us', link: 'ContactUs', icon: require('../../assets/images/contact_us.png') },
 ];
 
@@ -40,12 +40,18 @@ const Menu = (props) => {
         <View style={styles.container}>
             <View style={{ flex: 0.9 }}>
                 <ImageBackground
-                    source={require('../../assets/images/home_image.png')}
+                    source={require('../../assets/images/menu_bkgrnd.png')}
                     style={{ width: null, height: null, flex: 1, justifyContent: 'center' }}>
-                    <Text style={{ textAlign: 'center', color: '#fff', fontWeight: 'bold', fontSize: 22, marginTop: Dimensions.get('screen').height * .25 }}>AllbrandsUSA</Text>
-                    <TouchableOpacity 
-                        onPress={()=>props.navigation.navigate('Products')}
-                        style={{ borderWidth: 2, borderColor: '#fff', alignSelf: 'center', marginTop: 30,padding:5 }}>
+                    <Text style={{
+                        textAlign: 'center',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                        fontSize: Dimensions.get('screen').width * .12,
+                        marginTop: Dimensions.get('screen').height * .25
+                    }}>AllbrandsUSA</Text>
+                    <TouchableOpacity
+                        onPress={() => props.navigation.navigate('Products')}
+                        style={{ borderWidth: 2, borderColor: '#fff', alignSelf: 'center', marginTop: 30, padding: 5 }}>
                         <Image
                             style={{
                                 width: 150,
@@ -54,7 +60,7 @@ const Menu = (props) => {
                             }}
                             source={require('../../assets/images/product_logo.png')}
                         />
-                        <Text style={{ textAlign: 'center', color: '#fff', fontWeight: 'bold',fontSize:20}}>
+                        <Text style={{ textAlign: 'center', color: '#fff', fontWeight: 'bold', fontSize: 20 }}>
                             Products
                         </Text>
                     </TouchableOpacity>
@@ -71,7 +77,7 @@ const Menu = (props) => {
                 }}>
                 {data.map((single, index) => (
                     <TouchableOpacity
-                        onPress={()=>props.navigation.navigate(single.link)}
+                        onPress={() => props.navigation.navigate(single.link)}
                         key={index}
                         style={{
                             width: boxsize,

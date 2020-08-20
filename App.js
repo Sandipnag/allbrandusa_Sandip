@@ -10,17 +10,25 @@ import ContactUs from './pages/contact_us';
 import Exports from './pages/exports';
 import Partners from './pages/partners';
 import Products from './pages/products';
+import RMA from './pages/rma';
+import Chat from './pages/chat';
+import Login from './pages/login';
+import { Platform } from 'react-native';
+import productDetails from './pages/productDetails';
 
 
 const AppNavigator = createAnimatedSwitchNavigator(
   {
-    // Splash: Splash,
+    Login: Login,
     Menu:Menu,
     Aboutus:Aboutus,
     ContactUs:ContactUs,
     Exports:Exports,
     Partners:Partners,
-    Products:Products
+    Products:Products,
+    RMA:RMA,
+    Chat:Chat,
+    Productdetails:productDetails
   },
   {
     transition: (
@@ -28,6 +36,7 @@ const AppNavigator = createAnimatedSwitchNavigator(
         {/* <Transition.In type="slide-right" durationMs={500} /> */}
       </Transition.Together>
     ),
+    initialRouteName: Platform.OS=='ios' ? 'Login' : 'Menu'
   }
 );
 

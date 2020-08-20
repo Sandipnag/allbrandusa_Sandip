@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "957169923369",
+    "firebase_url": "https://allbrandusa-aa801.firebaseio.com",
+    "project_id": "allbrandusa-aa801",
+    "storage_bucket": "allbrandusa-aa801.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957169923369:android:02178296300391b2adf338",
+        "android_client_info": {
+          "package_name": "com.allbrandusa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957169923369-03j51a5ra6sj4jhpilsre5amf0tj9ta9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZrAPlg8WbHqp1hb4NAbukAvNxz0BCrhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957169923369-03j51a5ra6sj4jhpilsre5amf0tj9ta9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
