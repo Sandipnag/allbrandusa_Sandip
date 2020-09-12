@@ -120,19 +120,22 @@ const Products = (props) => {
         setLoading(true);
         let tempParam = param;
         if (category){
-            tempParam = { ...param, category, per_page: DATA_TO_SHOW, search_data: '' };
+            tempParam = { page_no: 1, category, per_page: DATA_TO_SHOW, search_data: '' };
+            console.log('category-->',tempParam)
             setSearchText('')
         }
         else if (brand){
-            tempParam = { ...param, brand, per_page: DATA_TO_SHOW, search_data: '' };
+            tempParam = { page_no: 1, brand, per_page: DATA_TO_SHOW, search_data: '' };
+            console.log('brand-->',tempParam)
             setSearchText('')
         }
         else if (searchText != '') {
             Keyboard.dismiss();
             tempParam = { page_no: 1, per_page: DATA_TO_SHOW, search_data: searchText };
+            console.log('searchText-->',tempParam)
         }
         setParam(tempParam);
-        getAllProducts(tempParam)
+        getAllProducts(tempParam);
     }
 
     handleLoadMore = () => {
